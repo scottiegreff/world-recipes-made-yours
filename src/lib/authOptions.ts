@@ -119,7 +119,7 @@ export const authOptions: AuthOptions = {
       return true;
     },
   },
-  debug: process.env.NODE_ENV === "development",
+  // debug: process.env.NODE_ENV === "development",
 };
 
 // import type { OAuthConfig, OAuthUserConfig } from "."

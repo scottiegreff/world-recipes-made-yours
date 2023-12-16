@@ -116,7 +116,7 @@ export default function NavMenu() {
     router.push("/", { scroll: false });
   };
 
-  const handleRegisterLink = (event) => {
+  const handleRegisterLink = (event: any) => {
     // Your logic here
     // event.preventDefault();
     router.push("/register", { scroll: false });

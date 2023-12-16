@@ -67,9 +67,10 @@ export const authOptions: AuthOptions = {
         //   placeholder: "jsmail@email.com",
         // },
       },
-      async authorize(credentials) {
+
+      async authorize(credentials: any) {
         if (!credentials?.email || !credentials?.password) {
-          return toast.error("Invalid username or password.");
+          return null
         }
         const user = await prisma.user.findUnique({
           where: {
@@ -77,14 +78,14 @@ export const authOptions: AuthOptions = {
           },
         });
         if (!user || !user.password) {
-          return toast.error("Invalid username or password.");
+          return null;
         }
         const passwordMatch = await bcrypt.compare(
           credentials.password,
           user.password
         );
         if (!passwordMatch) {
-          return toast.error("Invalid username or password.");
+          return null
         }
         return user;
       },

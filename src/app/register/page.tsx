@@ -33,7 +33,7 @@ export default function Register() {
     }
   });
 
-  const registerUser = async () => {
+  const registerUser = async (event: any) => {
     event.preventDefault();
     const response = await fetch("/api/register", {
       method: "POST",

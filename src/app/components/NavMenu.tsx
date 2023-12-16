@@ -154,7 +154,7 @@ export default function NavMenu() {
             )}
           </div>
           <NavigationMenu>
-            <NavigationMenuList >
+            <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger>
                   {" "}
@@ -176,7 +176,7 @@ export default function NavMenu() {
                             AI RECIPE APP
                           </div>
                           <p className="text-xs leading-tight text-muted-foreground">
-                            Discouver our world's recipes.
+                            Discouver our world&apos;s recipes.
                           </p>
                         </a>
                       </NavigationMenuLink>

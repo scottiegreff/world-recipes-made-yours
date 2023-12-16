@@ -82,8 +82,8 @@ export default function Controller({
       <hr />
 
       <div className="flex flex-col items-center justify-center">
-        <h6 className="mt-10 lg:mt-20 text-xs lg:text-[1.1rem] text-md font-extralight ">
-          The World's Recipes... Made Yours.
+        <h6 className="mt-10 lg:mt-20 text-xs lg:text-[1.1rem] text-md font-extralight">
+          The World&apos;s Recipes... Made Yours.
         </h6>
         <h1 className="text-sm lg:text-2xl text-center mt-3">
           An App to discover world recipes based on your Dietry Prefrences.
@@ -123,7 +123,7 @@ export default function Controller({
             <PiNumberSquareFiveFill size={20} />
             <p className="text-xs lg:text-lg mb-10 ms-3">
               Finally, to save recipes, you must be a Member... to retrieve your
-              recipes go to the Member's page and click GET MY RECIPES.
+              recipes go to the Members page and click GET MY RECIPES.
             </p>
           </div>
         </div>

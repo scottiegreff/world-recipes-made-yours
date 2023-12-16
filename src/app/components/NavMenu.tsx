@@ -104,12 +104,12 @@ export default function NavMenu() {
   const router = useRouter();
   const { data: session } = useSession();
 
-  const handleSignInLink = (event) => {
+  const handleSignInLink = (event: any) => {
     // Your logic here
     event.preventDefault();
     router.push("/login", { scroll: false });
   };
-  const handleSignOut = (event) => {
+  const handleSignOut = (event: any) => {
     // Your logic here
     // event.preventDefault();
     signOut();

@@ -21,7 +21,7 @@ export default function SelectionCard({
       setSelection([items]); // wrap items inside an array
       setIsLoading(false);
     }
-  }, []);
+  }, [items]);
 
   function handleClick(parent: string, gptValue: string) {
     // console.log("PARENT: ", parent);
@@ -62,14 +62,14 @@ export default function SelectionCard({
                     handleClick(items[key].parent, items[key].gptValue);
                   }}
                 >
-                  <img
+                  <Image
                     key={key}
-                    width={0}
-                    height={0}
+                    width={500}
+                    height={500}
                     src={`/${items[key].image}.jpg`}
                     className="w-full h-auto block shadow-lg rounded-full opacity-30 transition-opacity duration-300"
                     alt={`${items[key].name}`}
-                    // priority={true}
+                    priority={true}
                   />
                   <div className="absolute inset-0 flex items-center justify-center text-[1.25rem] md:text-[2rem] font-thin">
                     {items[key].name}

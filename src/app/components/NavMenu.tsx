@@ -51,6 +51,7 @@ import {
 import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 const ACTIVE_ROUTE =
   "py-2 px-3 md:mx-10 rounded-full text-xs md:text-lg hover:bg-black hover:text-white hover:rounded-lg hover:transition hover:duration-250";
@@ -142,7 +143,9 @@ export default function NavMenu() {
             {!session ? (
               <BsPersonRaisedHand size={30} />
             ) : (
-              <img
+              <Image
+                width={500}
+                height={500}
                 src={
                   session?.user?.image
                     ? session.user.image

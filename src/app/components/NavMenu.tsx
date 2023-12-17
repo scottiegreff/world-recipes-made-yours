@@ -141,7 +141,7 @@ export default function NavMenu() {
         <div className="lg:w-[35%] md:w-[40%] flex justify-around items-center">
           <div>
             {!session ? (
-              <BsPersonRaisedHand size={30} />
+              <BsPersonRaisedHand size={20} />
             ) : (
               <Image
                 width={500}

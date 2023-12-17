@@ -105,7 +105,7 @@ export default function GetUsersRecipe() {
 
           <button
             // ref={closeRecipesBtn}
-            className="mb-20 py-2 px-7 bg-black text-red-400 rounded-3xl text-md font-md shadow-2xl active:scale-[.99] active:shadow-none transform transition duration-150 hover:bg-gray-900"
+            className="mb-20 py-2 px-7 bg-gray-600 hover:bg-gray-700 hover:border-none text-red-400 border border-red-100 rounded-3xl text-md font-md shadow-2xl active:scale-[.99] active:shadow-none transform transition duration-150"
             onClick={closeRecipes}
           >
             CLOSE RECIPES

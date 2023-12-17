@@ -18,7 +18,7 @@ export default function ChatGPT({
   const [isFetching, setIsFetching] = useState(false);
   const [isGettingRecipes, setIsGettingRecipes] = useState(false);
   let [digitOnly, setDigitOnly] = useState("");
- 
+
   const [conversationHistory, setConversationHistory] = useState<Message[]>([
     {
       role: "system",
@@ -36,7 +36,6 @@ export default function ChatGPT({
     setCurrentContent(userDietPref);
   }, [userDietPrefArr]);
 
-  console.log("digitONLY!!!!!!!!!", digitOnly);
   const handleAPISubmit = async () => {
     // event.preventDefault();
     setIsGettingRecipes(true);
@@ -53,6 +52,7 @@ export default function ChatGPT({
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
         },
         body: JSON.stringify(requestBody),
       }
@@ -141,7 +141,7 @@ export default function ChatGPT({
             }}
             onKeyDown={handleKeyDown}
           ></textarea>
-      
+
           <button
             className="p-2 mb-10 bg-white text-black border border-black rounded-3xl text-md font-md px-[6%] shadow-2xl active:scale-[.99] active:shadow-none transform transition duration-150 hover:bg-gray-400"
             onClick={handleAPISubmit}

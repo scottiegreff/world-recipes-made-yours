@@ -21,9 +21,10 @@ export const POST = async function (req: NextRequest) {
       "https://worldrecipesmade.com/members",
       "http://localhost:3000",
       "https://world-recipes-made-yours.vercel.app",
-     " https://world-recipes-made-yours-9wdc9buko-scottiegreffs-projects.vercel.app",
+      "https://world-recipes-made-yours-9wdc9buko-scottiegreffs-projects.vercel.app",
+      "https://world-recipes-made-yours-git-main-scottiegreffs-projects.vercel.app",
     ];
-    const origin = req.headers.get('origin');
+    const origin = req.headers.get("origin");
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -42,7 +43,8 @@ export const POST = async function (req: NextRequest) {
       status: 200,
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": origin || "https://www.worldrecipesmade.com", // Ensure "origin" is always a string
+        "Access-Control-Allow-Origin":
+          origin || "https://www.worldrecipesmade.com", // Ensure "origin" is always a string
         "Access-Control-Allow-Methods": "POST, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type, Authorization",
       },

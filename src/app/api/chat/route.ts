@@ -20,7 +20,8 @@ export const POST = async function (req: NextRequest) {
       "https://worldrecipesmade.com",
       "https://worldrecipesmade.com/members",
       "http://localhost:3000",
-      "https://world-recipes-made-yours.vercel.app"
+      "https://world-recipes-made-yours.vercel.app",
+     " https://world-recipes-made-yours-9wdc9buko-scottiegreffs-projects.vercel.app",
     ];
     const origin = req.headers.get('origin');
     const response = await fetch("https://api.openai.com/v1/chat/completions", {

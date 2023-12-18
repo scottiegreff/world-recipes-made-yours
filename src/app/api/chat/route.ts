@@ -15,17 +15,14 @@ export const POST = async function (req: NextRequest) {
     messages: [...conversationHistory, currentUserInput],
   };
   try {
-    const response = await fetch(
-      "https://api.openai.com/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${openApiKey}`,
-        },
-        body: JSON.stringify(dataBody),
-      }
-    ).then((response) => {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${openApiKey}`,
+      },
+      body: JSON.stringify(dataBody),
+    }).then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -36,7 +33,8 @@ export const POST = async function (req: NextRequest) {
       status: 200,
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "https://www.worldrecipesmade.com, https://worldrecipesmade.com, http://localhost:3000, https://world-recipes-made-yours.vercel.app",
+        "Access-Control-Allow-Origin":
+          "https://www.worldrecipesmade.com, https://worldrecipesmade.com, https://worldrecipesmade.com/members , http://localhost:3000, https://world-recipes-made-yours.vercel.app",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type, Authorization",
       },

@@ -19,5 +19,5 @@ export function middleware(request: Request) {
   // console.log(request.url);
 }
 export const config = {
-  matcher: ["/users", "/create-admin", "/api/:path*"],
+  matcher: ["/members", "/create-admin", "/api/:path*"],
 };

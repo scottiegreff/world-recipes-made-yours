@@ -9,35 +9,36 @@ export const POST = async function (req: NextRequest) {
   const { currentUserInput, conversationHistory } = requestBody;
   const openApiKey = process.env.OPENAI_API_KEY as string;
 
-  const data = {
+  const dataBody = {
     model: "gpt-4-1106-preview",
     max_tokens: 800, //800
     messages: [...conversationHistory, currentUserInput],
   };
   try {
-    const openaiResponse = await fetch(
+    const response = await fetch(
       "https://api.openai.com/v1/chat/completions",
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${openApiKey}`,
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${openApiKey}`,
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(dataBody),
       }
-    ).then(response => {
+    ).then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
-      }return response.json();
-    })
-    const responseBody = await openaiResponse.json();
-    return new NextResponse(JSON.stringify(responseBody), {
+      }
+      return response.json();
+    });
+    const data = await response;
+    return new NextResponse(JSON.stringify(data), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PUT",
-        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "POST",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
       },
     });
   } catch (error) {

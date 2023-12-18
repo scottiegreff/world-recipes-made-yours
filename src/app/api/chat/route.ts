@@ -25,15 +25,19 @@ export const POST = async function (req: NextRequest) {
         },
         body: JSON.stringify(data),
       }
-    );
+    ).then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }return response.json();
+    })
     const responseBody = await openaiResponse.json();
     return new NextResponse(JSON.stringify(responseBody), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PUT,",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization", // Allow these headers
+        "Access-Control-Allow-Methods": "GET, POST, PUT",
+        "Access-Control-Allow-Headers": "Content-Type",
       },
     });
   } catch (error) {

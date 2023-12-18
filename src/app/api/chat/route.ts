@@ -11,7 +11,7 @@ export const POST = async function (req: NextRequest) {
 
   const data = {
     model: "gpt-4-1106-preview",
-    max_tokens: 800,//800
+    max_tokens: 800, //800
     messages: [...conversationHistory, currentUserInput],
   };
   try {
@@ -21,7 +21,6 @@ export const POST = async function (req: NextRequest) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
           Authorization: `Bearer ${openApiKey}`,
         },
         body: JSON.stringify(data),
@@ -30,7 +29,12 @@ export const POST = async function (req: NextRequest) {
     const responseBody = await openaiResponse.json();
     return new NextResponse(JSON.stringify(responseBody), {
       status: 200,
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "https://world-recipes-made-yours.vercel.app", 
+        "Access-Control-Allow-Methods": "GET, POST, PUT,",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization", // Allow these headers
+      },
     });
   } catch (error) {
     console.error(error);

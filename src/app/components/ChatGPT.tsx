@@ -52,7 +52,6 @@ export default function ChatGPT({
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
         },
         body: JSON.stringify(requestBody),
       }
@@ -104,7 +103,7 @@ export default function ChatGPT({
       <>
         <div className="flex justify-center items-center">
           <button
-            className="my-20 p-2 bg-white text-black rounded-3xl border border-white text-lg font-light px-[5%] shadow-2xl shadow-yellow-400 active:scale-[.99] active:shadow-none transform transition duration-150 hover:bg-gray-900 hover:text-white hover:shadow-white"
+            className="my-20 p-2 bg-white text-black rounded-3xl border border-black text-lg font-light px-[5%] shadow-2xl shadow-yellow-400 active:scale-[.99] active:shadow-none transform transition duration-150 hover:bg-gray-900 hover:text-white hover:shadow-white"
             onClick={handleAPISubmit}
           >
             GET RECIPE IDEAS

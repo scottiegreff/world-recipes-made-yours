@@ -21,7 +21,7 @@ export const POST = async function (req: NextRequest) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${openApiKey}`,
+          "Authorization": `Bearer ${openApiKey}`,
         },
         body: JSON.stringify(data),
       }
@@ -31,7 +31,7 @@ export const POST = async function (req: NextRequest) {
       status: 200,
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*", 
+        "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, POST, PUT,",
         "Access-Control-Allow-Headers": "Content-Type, Authorization", // Allow these headers
       },

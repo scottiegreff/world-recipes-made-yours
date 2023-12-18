@@ -53,7 +53,7 @@ export default function SelectionCard({
                   key={key}
                   className={`relative inline-block ${
                     activeButton === items[key]
-                      ? "border-[3px] lg:border-[4px] xl:border-[6px] xxl:border-[8px] border-black rounded-full"
+                      ? "border-[3px] lg:border-[4px] xl:border-[6px] xxl:border-[8px] rounded-full"
                       : "border-none"
                   }`}
                   value={items[key].name}

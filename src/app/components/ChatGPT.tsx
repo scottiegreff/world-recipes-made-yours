@@ -52,6 +52,10 @@ export default function ChatGPT({
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Access-Control-Allow-Origin":
+            "https://www.worldrecipesmade.com, https://worldrecipesmade.com, https://worldrecipesmade.com/members , http://localhost:3000, https://world-recipes-made-yours.vercel.app",
+          "Access-Control-Allow-Methods": "POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization",
         },
         body: JSON.stringify(requestBody),
       }

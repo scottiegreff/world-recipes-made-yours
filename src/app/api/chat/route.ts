@@ -43,7 +43,7 @@ export const POST = async function (req: NextRequest) {
       status: 200,
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin":"*",
+        "Access-Control-Allow-Origin":"https://world-recipes-made-yours.vercel.app",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type, Authorization",
       },

@@ -9,7 +9,7 @@ export function middleware(req: NextRequest) {
    
     // Set CORS headers for the API route response
     res.headers.append('Access-Control-Allow-Credentials', "true")
-    res.headers.append('Access-Control-Allow-Origin', 'https://www.worldrecipesmade.com') 
+    res.headers.append('Access-Control-Allow-Origin', 'https://www.worldrecipesmade.com, https://world-recipes-made-yours.vercel.app') 
     res.headers.append('Access-Control-Allow-Methods', 'GET,POST, OPTIONS')
     res.headers.append(
         'Access-Control-Allow-Headers',

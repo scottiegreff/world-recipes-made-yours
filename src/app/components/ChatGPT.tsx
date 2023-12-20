@@ -13,7 +13,7 @@ export default function ChatGPT({
 }) {
   const submitGptBtnRef = useRef(null);
   let result: OpenAIResponse | undefined = undefined;
-  const [chatCompObj, setChatCompObj] = useState<OpenAIResponse | undefined>();
+  const [chatCompObj, setChatCompObj] = useState<OpenAIResponse | undefined>(undefined);
   let newHistory = [];
   const [isFetching, setIsFetching] = useState(false);
   const [isGettingRecipes, setIsGettingRecipes] = useState(false);
@@ -46,30 +46,33 @@ export default function ChatGPT({
       conversationHistory,
     };
 
-    const result: OpenAIResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/chat`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin":
-            "https://www.worldrecipesmade.com, https://worldrecipesmade.com, https://worldrecipesmade.com/members , http://localhost:3000, https://world-recipes-made-yours.vercel.app",
-          "Access-Control-Allow-Methods": "POST, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type, Authorization",
-        },
-        body: JSON.stringify(requestBody),
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      })
+    const apiUrl = new URL(`${process.env.NEXT_PUBLIC_BASE_URL}/api/chat`);
 
+    await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          // Handle response errors
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json(); // Parse JSON response
+      })
+      .then((data) => {
+        result = data;
+        setChatCompObj(result)
+        console.log("DATA FROM THE CLIENT:!!!!!!!!!!!!!!!!!!!!!", data); // Handle the data from the response
+      })
       .catch((error) => {
-        console.error("Error:", error);
+        console.error("Error during fetch:", error); // Handle any errors that occurred during fetch
       });
 
-    setChatCompObj(result);
+    // setChatCompObj(result);
+    // setIsFetching(false);
     setConversationHistory((prevHistory) => {
       // Construct a new array with the previous history and the new user input
       newHistory = [
@@ -86,9 +89,8 @@ export default function ChatGPT({
   };
 
   useEffect(() => {
-    if (chatCompObj) {
+    if(chatCompObj)
       setIsFetching(false);
-    }
   }, [chatCompObj]);
 
   // Event handler for key down in textarea
@@ -102,24 +104,7 @@ export default function ChatGPT({
     }
   };
 
-  if (!isGettingRecipes && !isFetching && !chatCompObj) {
-    return (
-      <>
-        <div className="flex justify-center items-center">
-          <button
-            className="my-20 p-2 bg-white text-black rounded-3xl border border-black text-lg font-light px-[5%] shadow-2xl shadow-yellow-400 active:scale-[.99] active:shadow-none transform transition duration-150 hover:bg-gray-900 hover:text-white hover:shadow-white"
-            onClick={handleAPISubmit}
-          >
-            GET RECIPE IDEAS
-          </button>
-        </div>
-      </>
-    );
-  }
-  if ((isGettingRecipes && isFetching) || !chatCompObj) {
-    return <LoadingSpinner />;
-  }
-  if (isGettingRecipes && !isFetching && chatCompObj) {
+  if (!isFetching && chatCompObj) {
     return (
       // shows the recipe ideas
       <>
@@ -163,4 +148,27 @@ export default function ChatGPT({
       </>
     );
   }
+
+  else if (!isFetching && !chatCompObj) {
+    return (
+      <>
+        <div className="flex justify-center items-center">
+          <button
+            className="my-20 p-2 bg-white text-black rounded-3xl border border-black text-lg font-light px-[5%] shadow-2xl shadow-yellow-400 active:scale-[.99] active:shadow-none transform transition duration-150 hover:bg-gray-900 hover:text-white hover:shadow-white"
+            onClick={handleAPISubmit}
+          >
+            GET RECIPE IDEAS
+          </button>
+        </div>
+      </>
+    );
+  }
+  else if (isFetching) {
+    return (
+      <>
+        <LoadingSpinner />
+      </>
+    );
+  }
+  
 }

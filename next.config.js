@@ -17,6 +17,21 @@ const nextConfig = {
     ],
   },
   async headers() {
+    allowedOrigins = ['https://www.world-recipes-made-yours.vercel.app/api/chat','https://world-recipes-made-yours.vercel.app/api/chat', 'https://world-recipes-made-yours.vercel.app', 'https://www.world-recipes-made-yours.vercel.app', 'https://world-recipes-made-yours.vercel.app/api/chat/', 'https://worldrecipesmade.com', 'https://www.worldrecipesmade.com', 'https://worldrecipesmade.com/api/chat', 'https://www.worldrecipesmade.com/api/chat'];
+
+    function handleRequest(request) {
+      const requestOrigin = request.getHeader('Origin');
+      if (allowedOrigins.includes(requestOrigin)) {
+        response.setHeader('Access-Control-Allow-Origin', requestOrigin);
+      } else {
+        response.setHeader('Access-Control-Allow-Origin', 'None'); // or handle as an error
+      }
+      // ... rest of the handling
+    }
+
+        response.setHeader('Access-Control-Allow-Origin', 'None') // or handle as an error
+    // ... rest of the handling
+
     return [
       {
         // matching all API routes
@@ -25,7 +40,7 @@ const nextConfig = {
           { key: "Access-Control-Allow-Credentials", value: "true" },
           {
             key: "Access-Control-Allow-Origin",
-            value: "https://world-recipes-made-yours.vercel.app/api/chat",
+            value: handleRequest(request),
           },
           { key: "Access-Control-Allow-Methods", value: "OPTIONS, POST" },
           {

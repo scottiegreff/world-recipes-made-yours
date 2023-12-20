@@ -30,7 +30,7 @@ const nextConfig = {
           { key: "Access-Control-Allow-Methods", value: "OPTIONS, POST" },
           {
             key: "Access-Control-Allow-Headers",
-            value: "content/type, authorization",
+            value: "content/type, authorization,origin",
           },
         ],
       },

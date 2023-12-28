@@ -2,6 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { middleware } from "./_corsMiddleware";
 
 export const POST = async function (req: NextRequest, res: NextResponse) {
+   // Call the middleware at the beginning of the route handler
+   const corsResponse = middleware(req);
+   if (corsResponse) {
+     return corsResponse;
+   }
   // Handle other methods (GET, POST, etc.)
   if (req.method === "POST") {
     const body = await req.json();
@@ -25,7 +30,6 @@ export const POST = async function (req: NextRequest, res: NextResponse) {
         {
           method: "POST",
           headers:
-            // getMiddleware.headers,
             {
               "Content-Type": "application/json",
               Authorization: `Bearer ${openApiKey}`,
@@ -37,7 +41,6 @@ export const POST = async function (req: NextRequest, res: NextResponse) {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      middleware(req);
       const data = await response.json();
       
      

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 // List of allowed origins
-const allowedOrigins = ['http://localhost:3000', 'https://www.worldrecipesmade.com'];
+const allowedOrigins = ['http://localhost:3000', 'https://www.worldrecipesmade.com','https://world-recipes-made-yours.vercel.app/api/chat', 'https://world-recipes-made-yours.vercel.app'];
 
 export function middleware(req: NextRequest) {
     const res = NextResponse.next();

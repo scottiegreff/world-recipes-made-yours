@@ -40,12 +40,12 @@ const nextConfig = {
           { key: "Access-Control-Allow-Credentials", value: "true" },
           {
             key: "Access-Control-Allow-Origin",
-            value: "https://www.worldrecipesmade.comjkljljkljlkjkljlk",
+            value: "https://www.worldrecipesmade.com",
           },
           { key: "Access-Control-Allow-Methods", value: "OPTIONS, POST" },
           {
             key: "Access-Control-Allow-Headers",
-            value: "authorization",
+            value: ['authorization', 'Content-Type', 'Access-Key'],
           },
         ],
       },

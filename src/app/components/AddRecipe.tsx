@@ -7,7 +7,7 @@ export default function AddRecipe() {
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:3000/api/recipes", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/recipes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

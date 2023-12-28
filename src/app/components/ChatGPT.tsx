@@ -65,7 +65,6 @@ export default function ChatGPT({
       .then((data) => {
         result = data;
         setChatCompObj(result)
-        console.log("DATA FROM THE CLIENT:!!!!!!!!!!!!!!!!!!!!!", data); // Handle the data from the response
       })
       .catch((error) => {
         console.error("Error during fetch:", error); // Handle any errors that occurred during fetch

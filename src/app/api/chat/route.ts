@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-// import middleware from "./_middleware";
+import { middleware } from "./_corsMiddleware";
 
 export const POST = async function (req: NextRequest, res: NextResponse) {
   // Handle other methods (GET, POST, etc.)
@@ -15,15 +15,21 @@ export const POST = async function (req: NextRequest, res: NextResponse) {
       max_tokens: 8, //800
       messages: [...conversationHistory, currentUserInput],
     };
+    // Get the origin of the request
+    // const origin = req.headers.get('Origin');
+    // console.log  ("ORIGIN: ", origin)
+    const getMiddleware = middleware(req);
     try {
       const response = await fetch(
         "https://api.openai.com/v1/chat/completions",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${openApiKey}`,
-          },
+          headers:
+            // getMiddleware.headers,
+            {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${openApiKey}`,
+            },
           body: JSON.stringify(dataBody),
         }
       );
@@ -31,7 +37,10 @@ export const POST = async function (req: NextRequest, res: NextResponse) {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
+      middleware(req);
       const data = await response.json();
+      
+     
       return new NextResponse(JSON.stringify(data));
     } catch (error) {
       console.error(error);

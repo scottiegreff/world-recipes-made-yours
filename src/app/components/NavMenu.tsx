@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { BsPersonRaisedHand } from "react-icons/bs";
 import { ModeToggle } from "./ModeToggle";
 import * as React from "react";
+import cat from '../../../public/cat.jpg'
 import {
   Cloud,
   CreditCard,
@@ -149,7 +150,7 @@ export default function NavMenu() {
                 src={
                   session?.user?.image
                     ? session.user.image
-                    : "https://avatars.githubusercontent.com/u/81866624?v=4"
+                    : cat
                 }
                 alt="User's Avatar"
                 className="rounded-full w-[40px] h-[40px] lg:w-[50px] lg:h-[50px]"

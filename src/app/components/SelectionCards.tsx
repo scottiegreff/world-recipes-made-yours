@@ -47,7 +47,7 @@ export default function SelectionCard({
             return (
               <div
                 key={key}
-                className="flex flex-col justify-around items-center w-[30%] h-[30%] mx-5 sm:w-[20%] sm:h-[20%] lg:w-[15%] lg:h-[15%] xl:w-[10%] xl:h-[10%] my-5 lg:my-8 rounded-full shadow-md transition-transform duration-200 ease-in-out transform hover:scale-[1.04] active:scale-[1.0] active:shadow-lg"
+                className="flex flex-col justify-around items-center w-[30%] h-[30%] mx-5 sm:w-[20%] sm:h-[20%] lg:w-[15%] lg:h-[15%] xl:w-[13%] xl:h-[10%] my-5 lg:my-8 rounded-full shadow-md transition-transform duration-200 ease-in-out transform hover:scale-[1.04] active:scale-[1.0] active:shadow-lg"
               >
                 <button
                   key={key}

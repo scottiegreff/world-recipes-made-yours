@@ -25,7 +25,7 @@ const nextConfig = {
           { key: "Access-Control-Allow-Credentials", value: "true" },
           {
             key: "Access-Control-Allow-Origin",
-            value: "https://world-recipes-made-yours.vercel.app/api/chat",
+            value: "https://world-recipes-made-yours.vercel.app",
           },
           { key: "Access-Control-Allow-Methods", value: "OPTIONS, POST" },
           {

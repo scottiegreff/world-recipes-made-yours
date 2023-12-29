@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 // List of allowed origins
-const allowedOrigins = ['https://www.worldrecipesmade.com','https://world-recipes-made-yours.vercel.app/api/chat', 'https://world-recipes-made-yours.vercel.app'];
-
+const allowedOrigins = ['https://www.worldrecipesmade.comsfddfgfdbdgda12334'];
+// 'https://world-recipes-made-yours.vercel.app/api/chat', 'https://world-recipes-made-yours.vercel.app'
 export function middleware(req: NextRequest) {
     const res = NextResponse.next();
 
@@ -12,7 +12,7 @@ export function middleware(req: NextRequest) {
     // If the origin is in the list of allowed origins, set the Access-Control-Allow-Origin header
     if (origin && allowedOrigins.includes(origin)) {
         res.headers.append('Access-Control-Allow-Origin', origin);
-        console.log("ORIGIN FROM SETTING ORIGIN!!!!!!!!!!: ", origin)
+        // console.log("ORIGIN FROM SETTING ORIGIN!!!!!!!!!!: ", origin)
     }
     res.headers.append(
         "Access-Control-Allow-Methods",

@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { middleware } from "./_corsMiddleware";
+import { middleware } from "../../../../middleware/middleware"
 
 export const POST = async function (req: NextRequest, res: NextResponse) {
    // Call the middleware at the beginning of the route handler
    const corsResponse = middleware(req);
    if (corsResponse) {
-     return corsResponse;
+    return corsResponse;
    }
   // Handle other methods (GET, POST, etc.)
   if (req.method === "POST") {

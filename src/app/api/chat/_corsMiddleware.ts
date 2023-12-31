@@ -1,40 +1,40 @@
-import { NextRequest, NextResponse } from 'next/server';
-// List of allowed origins
-const allowedOrigins = ['https://www.worldrecipesmade.comdfdfdfsfs54321'];
-// 'https://world-recipes-made-yours.vercel.app/api/chat', 'https://world-recipes-made-yours.vercel.app'
-export function middleware(req: NextRequest) {
-    const res = NextResponse.next();
+// import { NextRequest, NextResponse } from 'next/server';
+// // List of allowed origins
+// const allowedOrigins = ['https://www.worldrecipesmade.comdfdfdfsfs54321'];
+// // 'https://world-recipes-made-yours.vercel.app/api/chat', 'https://world-recipes-made-yours.vercel.app'
+// export function middleware(req: NextRequest) {
+//     const res = NextResponse.next();
 
-        // Get the origin of the request
-        const origin = req.headers.get('Origin');
-        console.log("ORIGIN!!!!!!!!!!: ", origin)
+//         // Get the origin of the request
+//         const origin = req.headers.get('Origin');
+//         console.log("ORIGIN!!!!!!!!!!: ", origin)
 
-    // // If the origin is in the list of allowed origins, set the Access-Control-Allow-Origin header
-    // if (origin && allowedOrigins.includes(origin)) {
-    //     res.headers.append('Access-Control-Allow-Origin', origin);
-    //     // console.log("ORIGIN FROM SETTING ORIGIN!!!!!!!!!!: ", origin)
-    // }
-    res.headers.append(
-        "Access-Control-Allow-Methods",
-        "GET,OPTIONS,PATCH,DELETE,POST"
-    );
-    res.headers.append(
-        "Access-Control-Allow-Headers",
-        "Content-Type, Access-Key, Authorization"
-    );
-    res.headers.append("Access-Control-Allow-Credentials", "true");
+//     // // If the origin is in the list of allowed origins, set the Access-Control-Allow-Origin header
+//     // if (origin && allowedOrigins.includes(origin)) {
+//     //     res.headers.append('Access-Control-Allow-Origin', origin);
+//     //     // console.log("ORIGIN FROM SETTING ORIGIN!!!!!!!!!!: ", origin)
+//     // }
+//     res.headers.append(
+//         "Access-Control-Allow-Methods",
+//         "GET,OPTIONS,PATCH,DELETE,POST"
+//     );
+//     res.headers.append(
+//         "Access-Control-Allow-Headers",
+//         "Content-Type, Access-Key, Authorization"
+//     );
+//     res.headers.append("Access-Control-Allow-Credentials", "true");
     
-    if (req.method === "OPTIONS") {
-        // If the origin is in the list of allowed origins, set the Access-Control-Allow-Origin header
-    if (origin && allowedOrigins.includes(origin)) {
-        res.headers.append('Access-Control-Allow-Origin', origin);
-        // console.log("ORIGIN FROM SETTING ORIGIN!!!!!!!!!!: ", origin)
-    }
-        return new NextResponse(null, { status: 200 });
-    }
-
-    return res;
-}
+//     if (req.method === "OPTIONS") {
+//         // If the origin is in the list of allowed origins, set the Access-Control-Allow-Origin header
+//     if (origin && allowedOrigins.includes(origin)) {
+//         res.headers.append('Access-Control-Allow-Origin', origin);
+//         // console.log("ORIGIN FROM SETTING ORIGIN!!!!!!!!!!: ", origin)
+//     }
+//         return new NextResponse(null, { status: 200 });
+//     }
+// 
+//     return res;
+// }
 
 
 // // app/api/chat/_middleware.ts

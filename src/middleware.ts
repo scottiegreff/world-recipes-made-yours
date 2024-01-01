@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 // List of allowed origins
-const allowedOrigins = ['https://api.openai.com'];
+const allowedOrigins = ['https://api.openai.com', 'https://world-recipes-made-yours.vercel.app/api/chat', 'https://world-recipes-made-yours.vercel.app', 'https://www.worldrecipesmade.com/', 'https://worldrecipesmade.com/'];
 
 export function middleware(request: Request) {
 

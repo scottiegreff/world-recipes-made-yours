@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { middleware } from "../../../../middleware/middleware"
+// import { middleware } from "../../../middleware"
 
 export const POST = async function (req: NextRequest, res: NextResponse) {
    // Call the middleware at the beginning of the route handler
-   const corsResponse = middleware(req);
-   if (corsResponse) {
-    return corsResponse;
-   }
+  //  const corsResponse = middleware(req);
+  //  if (corsResponse) {
+  //   return corsResponse;
+  //  }
   // Handle other methods (GET, POST, etc.)
   if (req.method === "POST") {
     const body = await req.json();
@@ -23,7 +23,7 @@ export const POST = async function (req: NextRequest, res: NextResponse) {
     // Get the origin of the request
     // const origin = req.headers.get('Origin');
     // console.log  ("ORIGIN: ", origin)
-    const getMiddleware = middleware(req);
+    // const getMiddleware = middleware(req);
     try {
       const response = await fetch(
         "https://api.openai.com/v1/chat/completions",

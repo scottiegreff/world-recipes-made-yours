@@ -4,6 +4,13 @@ import { NextResponse } from "next/server";
 const allowedOrigins = ['https://api.openai.com'];
 
 export function middleware(request: Request) {
+
+  console.log("HEELLOOO FROM MIDDLEWARE!!!!!!!!!!!!!!!!!")
+  console.log("Request Method: ", request.method)
+  console.log("Request URL: ", request.url)
+  console.log("Request Headers: ", request.headers)
+  console.log( "Request Origin",request.headers.get("Origin"));
+
   const res = NextResponse.next();
   const origin = request.headers.get("Origin");
   if (origin && allowedOrigins.includes(origin)) {
@@ -17,3 +24,7 @@ export function middleware(request: Request) {
   }
   return res;
 }
+
+export const config = {
+  matcher: "/api/chat/:path*",
+};

@@ -6,7 +6,6 @@ import Controller from "./components/Controller";
 import logo from "../../public/fork_knife_logo.svg";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
-
 import ResponseData from "./types/ResponseData";
 
 export default async function Home() {
@@ -75,7 +74,7 @@ export default async function Home() {
             <path d="m344.82 322.94c-17.848-17.324-36.723-35.879-56.68-55.773-35.969-35.969-84.844-84.855-137.69-137.7-87.121-87.121-96.141-86.242-112.14-70.234-30.855 30.855 110.34 207.95 164.93 262.54 51.891 51.891 85.391-1.1875 110.46 15.309 2.5586 2.625 5.0938 5.2305 7.5977 7.8125 7.6523-7.0781 15.492-14.395 23.527-21.957zm36.133 34.723c185.16 176.1 246.61 205.26 278.12 236.77 10.547 10.551 8.2383 31.402-6.3828 59.129-27.727 14.625-48.582 16.934-59.129 6.3828-31.465-31.465-60.582-92.777-235.96-277.27 7.5078-8.125 15.285-16.461 23.348-25.02z" />
           </g>
         </svg> */}
-
+ 
         <Controller onLoadData={onLoadData} />
       </div>
     </>

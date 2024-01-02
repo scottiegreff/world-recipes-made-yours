@@ -16,6 +16,7 @@ const nextConfig = {
       // ... any other remote patterns you need
     ],
   },
+  
   // async headers() {
   //   return [
   //     {
@@ -36,6 +37,11 @@ const nextConfig = {
   //     },
   //   ];
   // },
+
 };
 
 module.exports = nextConfig;
+
+const withVideos = require('next-videos')
+
+module.exports = withVideos()

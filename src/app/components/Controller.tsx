@@ -9,7 +9,6 @@ import { PiNumberSquareTwoLight } from "react-icons/pi";
 import { PiNumberSquareThreeFill } from "react-icons/pi";
 import { PiNumberSquareFourLight } from "react-icons/pi";
 import { PiNumberSquareFiveFill } from "react-icons/pi";
-
 import ChatGPT from "./ChatGPT";
 // <div className="flex flex-col justify-start items-start">
 // <h3 className="text-lg lg:text-xl font-md mt-10 mb-5">
@@ -123,11 +122,23 @@ export default function Controller({
         <h6 className="mt-10 lg:mt-20 text-xs lg:text-[1.1rem] text-md font-extralight">
           The World&apos;s Recipes... Made Yours.
         </h6>
-        <h1 className="text-sm lg:text-2xl text-center mt-3 mb-40">
+        <h1 className="text-sm lg:text-2xl text-center mt-3 mb-20">
           An App to discover world recipes based on your Dietry Prefrences.
         </h1>
-
-  
+      </div>
+      <hr />
+      <div className="flex flex-col justify-center items-center mt-10 mb-20">
+      <h1 className="text-sm lg:text-2xl text-center mt-3 mb-10">
+     Instructions:
+    </h1>
+        <video
+          src={require("../../../public/instructions.mp4")}
+          autoPlay
+          muted
+          loop
+          width={700}
+          height={700}
+        />
       </div>
       <hr />
       <Accordion title="Meal Time">
@@ -157,8 +168,7 @@ export default function Controller({
       </Accordion>
       <hr />
       {/* If  all prefrences are not selected show: Please input your preferences*/}
-      {
-      userDietPrefArr[0] === "" ||
+      {userDietPrefArr[0] === "" ||
       userDietPrefArr[1] === "" ||
       userDietPrefArr[2] === "" ||
       userDietPrefArr[3] === "" ||

@@ -2,9 +2,11 @@ import { NextResponse } from "next/server";
 import cors from 'cors';
 
 // List of allowed origins
-const allowedOrigins = ['https://www.worldrecipesmade.com/'];
+const allowedOrigins = ['https://world-recipes-made-yours.vercel.app/'];
 
 export function middleware(request: Request) {
+
+  if(process.env.NODE_ENV === "production"){
 
   console.log("HEELLOOO FROM MIDDLEWARE!!!!!!!!!!!!!!!!!")
   console.log("Request Method: ", request.method)
@@ -23,6 +25,7 @@ export function middleware(request: Request) {
     return new NextResponse(null, { status: 200 });
   }
   return res;
+}
 }
 
 export const config = {

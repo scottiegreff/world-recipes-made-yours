@@ -10,7 +10,7 @@ export const POST = async function (req: NextRequest, res: NextResponse) {
 
     const dataBody = {
       model: "gpt-4-1106-preview",
-      max_tokens: 800, //800
+      max_tokens: 80, //800
       messages: [...conversationHistory, currentUserInput],
     };
 

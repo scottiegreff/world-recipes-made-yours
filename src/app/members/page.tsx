@@ -74,7 +74,7 @@ export default async function Members() {
         WELCOME TO THE MEMBERS PAGE
       </h1>
       <GetUsersRecipe />
-      <div className=" mx-10 my-10 flex-col justify-center items center">
+      <div className="my-10 flex-col justify-center items center">
         <Controller onLoadData={onLoadData} />
       </div>
     </>

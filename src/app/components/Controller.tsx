@@ -11,6 +11,44 @@ import { PiNumberSquareFourLight } from "react-icons/pi";
 import { PiNumberSquareFiveFill } from "react-icons/pi";
 
 import ChatGPT from "./ChatGPT";
+// <div className="flex flex-col justify-start items-start">
+// <h3 className="text-lg lg:text-xl font-md mt-10 mb-5">
+//   Instructions:
+// </h3>
+// <div className="flex flex-row justify-center items-start">
+//   <PiNumberSquareOneFill size={20} />
+//   <p className="text-xs lg:text-lg mb-2 ms-3">
+//     Click on the Dietry Prefrences : MEAL TIME, COUNTRY, ...
+//   </p>
+// </div>
+
+// <div className="flex flex-row justify-center items-start">
+//   <PiNumberSquareTwoLight size={20} />
+//   <p className="text-xs lg:text-lg mb-2 ms-3">
+//     Select <b>ALL</b> your Dietry Prefrences.
+//   </p>
+// </div>
+// <div className="flex flex-row justify-center items-start">
+//   <PiNumberSquareThreeFill size={20} />
+//   <p className="text-xs lg:text-lg mb-2 ms-3">
+//     Then click on the GET RECIPE IDEAS button.
+//   </p>
+// </div>
+// <div className="flex flex-row justify-center items-start">
+//   <PiNumberSquareFourLight size={20} />
+//   <p className="text-xs lg:text-lg mb-2 ms-3">
+//     Once you decide on a recipe you like... Input the recipe <b>#</b>{" "}
+//     you want to make/save.
+//   </p>
+// </div>
+// <div className="flex flex-row justify-center items-start">
+//   <PiNumberSquareFiveFill size={20} />
+//   <p className="text-xs lg:text-lg mb-10 ms-3">
+//     Finally, to save recipes, you must be a Member... to retrieve your
+//     recipes go to the Members page and click GET MY RECIPES.
+//   </p>
+// </div>
+// </div>
 
 const gptTempArray: string[] = new Array(5).fill("");
 let userDietPrefArr: string[] = new Array(5).fill("");
@@ -85,48 +123,11 @@ export default function Controller({
         <h6 className="mt-10 lg:mt-20 text-xs lg:text-[1.1rem] text-md font-extralight">
           The World&apos;s Recipes... Made Yours.
         </h6>
-        <h1 className="text-sm lg:text-2xl text-center mt-3">
+        <h1 className="text-sm lg:text-2xl text-center mt-3 mb-40">
           An App to discover world recipes based on your Dietry Prefrences.
         </h1>
 
-        <div className="flex flex-col justify-start items-start">
-          <h3 className="text-lg lg:text-xl font-md mt-10 mb-5">
-            Instructions:
-          </h3>
-          <div className="flex flex-row justify-center items-start">
-            <PiNumberSquareOneFill size={20} />
-            <p className="text-xs lg:text-lg mb-2 ms-3">
-              Click on the Dietry Prefrences : MEAL TIME, COUNTRY, ...
-            </p>
-          </div>
-
-          <div className="flex flex-row justify-center items-start">
-            <PiNumberSquareTwoLight size={20} />
-            <p className="text-xs lg:text-lg mb-2 ms-3">
-              Select <b>ALL</b> your Dietry Prefrences.
-            </p>
-          </div>
-          <div className="flex flex-row justify-center items-start">
-            <PiNumberSquareThreeFill size={20} />
-            <p className="text-xs lg:text-lg mb-2 ms-3">
-              Then click on the GET RECIPE IDEAS button.
-            </p>
-          </div>
-          <div className="flex flex-row justify-center items-start">
-            <PiNumberSquareFourLight size={20} />
-            <p className="text-xs lg:text-lg mb-2 ms-3">
-              Once you decide on a recipe you like... Input the recipe <b>#</b>{" "}
-              you want to make/save.
-            </p>
-          </div>
-          <div className="flex flex-row justify-center items-start">
-            <PiNumberSquareFiveFill size={20} />
-            <p className="text-xs lg:text-lg mb-10 ms-3">
-              Finally, to save recipes, you must be a Member... to retrieve your
-              recipes go to the Members page and click GET MY RECIPES.
-            </p>
-          </div>
-        </div>
+  
       </div>
       <hr />
       <Accordion title="Meal Time">

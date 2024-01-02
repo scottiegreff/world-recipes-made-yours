@@ -31,7 +31,7 @@ export default function ChatGPT({
   // console.log("currentContent: ", currentContent);
   useEffect(() => {
     // let userDietPref = `Please give me 5 ${userDietPrefArr[2]} ${userDietPrefArr[0]} ${userDietPrefArr[4]} recipes to choose from. I am ${userDietPrefArr[1]} and I have ${userDietPrefArr[3]} to prepare the complete recipe.`;
-    const userDietPref = `bullet list in the format "#)Recipe Name - Short Description" of 10 ${userDietPrefArr[2]} ${userDietPrefArr[0]} ${userDietPrefArr[4]} recipes. They are to be ${userDietPrefArr[1]} and able to be made in ${userDietPrefArr[3]}`;
+    const userDietPref = `bullet list in the format "#)Recipe Name - Short Description" of 4 ${userDietPrefArr[2]} ${userDietPrefArr[0]} ${userDietPrefArr[4]} recipes. They are to be ${userDietPrefArr[1]} and able to be made in ${userDietPrefArr[3]}`;
     // const userDietPref = "Please give me a list of 5 Italian dinner recipes. I am meat eater that is looking for comfort food and I have 1 hour to prepare the complete recipe.";
     setCurrentContent(userDietPref);
   }, [userDietPrefArr]);

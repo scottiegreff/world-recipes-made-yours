@@ -19,6 +19,10 @@ export const POST = async function (req: NextRequest, res: NextResponse) {
     const origin = req.headers.get("Origin");
 
     try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => {
+        controller.abort();
+      }, 60000);
       const response = await fetch(
         "https://api.openai.com/v1/chat/completions",
         {
@@ -28,6 +32,7 @@ export const POST = async function (req: NextRequest, res: NextResponse) {
               "Content-Type": "application/json",
               Authorization: `Bearer ${openApiKey}`,
             },
+            
           body: JSON.stringify(dataBody),
         }
       );

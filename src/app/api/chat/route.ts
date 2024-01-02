@@ -48,6 +48,7 @@ export const POST = async function (req: NextRequest, res: NextResponse) {
       headers: {
         "Access-Control-Allow-Origin": origin || "https://www.worldrecipesmade.com/",
         "Access-Control-Allow-Methods": "GET,OPTIONS,PATCH,DELETE,POST",
+        "Access-Control-Alloow-PreflightContinue": "false",
         "Access-Control-Allow-Headers": "Content-Type, Access-Key, Authorization, Origin, X-Requested-With, Accept",
         "Access-Control-Allow-Credentials": "true",
 

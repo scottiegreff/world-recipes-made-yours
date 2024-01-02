@@ -162,7 +162,7 @@ export default function Controller({
       userDietPrefArr[2] === "" ||
       userDietPrefArr[3] === "" ||
       userDietPrefArr[4] === "" ? (
-        <p className="mt-7 text-left p-4 text-lg md:text-2xl font-light">
+        <p className="mt-7 text-left p-4 text-red-500 text-lg md:text-2xl font-light">
           * Please input your preferences...
         </p>
       ) : (

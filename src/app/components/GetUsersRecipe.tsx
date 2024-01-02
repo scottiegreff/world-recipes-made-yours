@@ -45,7 +45,7 @@ export default function GetUsersRecipe() {
     <>
       <div className="flex justify-center items-center">
         <button
-          className="mb-10 py-2 px-7 bg-gray-600 text-white border border-red-100 rounded-3xl text-md font-md shadow-2xl active:scale-[.99] active:shadow-none transform transition duration-150 hover:bg-gray-700 hover:border-none"
+          className=" md:w-50 md:mb-10 py-2 px-3 md:py-2 md:px-7 bg-gray-600 text-white border border-red-100 rounded-3xl text-[.75rem] md:text-md md:font-md shadow-2xl active:scale-[.99] active:shadow-none transform transition duration-150 hover:bg-gray-700 hover:border-none"
           onClick={handleFetchUser}
         >
           GET YOUR SAVED RECIPES

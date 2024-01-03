@@ -29,6 +29,7 @@ export const POST = async function (req: NextRequest, res: NextResponse) {
     }
 
     try {
+      console.log("hellllllllo from try block")
       const response: any = await fetchWithTimeout(  "https://api.openai.com/v1/chat/completions",  {
         method: "POST",
         headers: {

@@ -18,10 +18,12 @@ export const POST = async function (req: NextRequest, res: NextResponse) {
     // const origin = req.headers.get("Origin");
     
     const timeout = (ms: number) => {
+      console.log("hellllllllo from timeout")
       return new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), ms));
     };
 
     const fetchWithTimeout = (url: RequestInfo | URL, options: object, timeoutMs: number) => {
+      console.log("hellllllllo from fetchWithTimeout")
       return Promise.race([
         fetch(url, options),
         timeout(timeoutMs)

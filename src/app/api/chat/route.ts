@@ -10,39 +10,43 @@ export const POST = async function (req: NextRequest, res: NextResponse) {
 
     const dataBody = {
       model: "gpt-4-1106-preview",
-      max_tokens: 100,
+      max_tokens: 800,
       messages: [...conversationHistory, currentUserInput],
     };
 
     // Get the origin of the request
-    const origin = req.headers.get("Origin");
+    // const origin = req.headers.get("Origin");
+    
+    const timeout = (ms: number) => {
+      return new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), ms));
+    };
+
+    const fetchWithTimeout = (url: RequestInfo | URL, options: object, timeoutMs: number) => {
+      return Promise.race([
+        fetch(url, options),
+        timeout(timeoutMs)
+      ]);
+    }
 
     try {
-      // const controller = new AbortController();
-      // const timeout = setTimeout(() => {
-      //   controller.abort();
-      // }, 60000);
-      const response = await fetch(
-        "https://api.openai.com/v1/chat/completions",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${openApiKey}`,
-          },
+      const response: any = await fetchWithTimeout(  "https://api.openai.com/v1/chat/completions",  {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${openApiKey}`,
+        },
 
-          body: JSON.stringify(dataBody),
-          // signal: controller.signal,
-        }
-      );
-      // clearTimeout(timeout);
-
+        body: JSON.stringify(dataBody),
+        // signal: controller.signal,
+      }, 60000)
+      
+      
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-
       return new NextResponse(JSON.stringify(data));
+
     } catch (error) {
       if ((error as Error).name === "AbortError")
         console.log("Fetch request timed out");

@@ -18,12 +18,10 @@ export const POST = async function (req: NextRequest, res: NextResponse) {
     // const origin = req.headers.get("Origin");
     
     const timeout = (ms: number) => {
-      console.log("hellllllllo from timeout")
       return new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), ms));
     };
 
     const fetchWithTimeout = (url: RequestInfo | URL, options: object, timeoutMs: number) => {
-      console.log("hellllllllo from fetchWithTimeout")
       return Promise.race([
         fetch(url, options),
         timeout(timeoutMs)
@@ -31,18 +29,15 @@ export const POST = async function (req: NextRequest, res: NextResponse) {
     }
 
     try {
-      console.log("hellllllllo from try block")
+
       const response: any = await fetchWithTimeout(  "https://api.openai.com/v1/chat/completions",  {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${openApiKey}`,
         },
-
         body: JSON.stringify(dataBody),
-        // signal: controller.signal,
-      }, 60000)
-      
+      }, 60000)     
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

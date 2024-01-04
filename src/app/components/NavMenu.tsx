@@ -144,6 +144,7 @@ export default function NavMenu() {
             {!session ? (
               <BsPersonRaisedHand size={20} />
             ) : (
+              
               <Image
                 width={500}
                 height={500}

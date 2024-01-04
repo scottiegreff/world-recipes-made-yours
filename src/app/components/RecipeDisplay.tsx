@@ -14,7 +14,9 @@ export default function RecipeDisplay({
 
   return (
     <div className="mt-10 mb-[20vh] p-4 text-xl md:text-xl  font-md">
+
       <ul className="mt-10 font-light">
+      <h3 className="font-semibold text-2xl">Recipe:</h3>
         {splitArray?.map((item: any, index: any) => {
           // Check if 'item' is a number using the regex
           if (/(\d+\))/g.test(item)) {
@@ -30,6 +32,7 @@ export default function RecipeDisplay({
             /Ingredients:/.test(item) ||
             /Technique:/.test(item)
           ) {
+            <h3 className="font-semibold text-2xl">Recipe</h3>
             // using a regex of "/n" spit the item and push the results into an array
             const recipeArray = [];
             for (let i = 0; i < item.length; i++) {

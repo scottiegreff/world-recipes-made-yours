@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import cors from 'cors';
 
 // List of allowed origins
-const allowedOrigins = ['https://world-recipes-made-yours.vercel.app/', 'http:localhost:3000'];
+const allowedOrigins = ['https://world-recipes-made-yours.vercel.app/, http://localhost:3000'];
 
 export function middleware(request: Request) {
 

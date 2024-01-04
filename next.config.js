@@ -1,9 +1,11 @@
 /** @type {import('next').NextConfig} */
+const withVideos = require('next-videos')
 const nextConfig = {
   experimental: {
     serverActions: true,
     serverComponentsExternalPackages: ["mongoose"],
   },
+
   images: {
     remotePatterns: [
       {
@@ -16,32 +18,7 @@ const nextConfig = {
       // ... any other remote patterns you need
     ],
   },
-  
-  // async headers() {
-  //   return [
-  //     {
-  //       // matching all API routes
-  //       source: "/api/chat/:path*",
-  //       headers: [
-  //         { key: "Access-Control-Allow-Credentials", value: "true" },
-  //         {
-  //           key: "Access-Control-Allow-Origin",
-  //           value: "https://world-recipes-made-yours.vercel.app",
-  //         },
-  //         { key: "Access-Control-Allow-Methods", value: "OPTIONS, POST" },
-  //         {
-  //           key: "Access-Control-Allow-Headers",
-  //           value: "authorization, Content-Type, Access-Key",
-  //         },
-  //       ],
-  //     },
-  //   ];
-  // },
 
 };
 
 module.exports = nextConfig;
-
-const withVideos = require('next-videos')
-
-module.exports = withVideos()

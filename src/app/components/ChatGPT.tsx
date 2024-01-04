@@ -135,6 +135,7 @@ export default function ChatGPT({
           >
             GET RECIPE
           </button>
+          
 
           {chatCompObj === undefined ? (
             <>{console.log("chatCompObj1: ", chatCompObj)}</>

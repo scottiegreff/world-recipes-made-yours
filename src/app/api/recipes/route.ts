@@ -9,8 +9,9 @@ import connectMongoDB from "../../../utils/mongoose";
 const prisma = new PrismaClient();
 // run inside `async` function
 
-export const GET = async function (req: NextRequest) {
-  if (req.method == "GET") {
+
+export const GET = async (req: NextRequest) => {
+if(req.method === "GET") {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
     if (!token) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -31,11 +32,12 @@ export const GET = async function (req: NextRequest) {
     } finally {
       await prisma.$disconnect();
     }
-  }
 };
+}
 
-export const PATCH = async function (req: NextRequest) {
-  if (req.method === "PATCH") {
+export const PATCH = async (req: NextRequest) => {
+if (req.method === "PATCH") {
+
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
     if (!token) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -54,7 +56,7 @@ export const PATCH = async function (req: NextRequest) {
         },
       });
 
-      console.log("UPDATED USER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!, ", updatedUser);
+      console.log("ADDED A NEW RECIPE TO USER!!!!, ", updatedUser);
       if (updatedUser)
         return new NextResponse(JSON.stringify(updatedUser), { status: 200 });
     } catch (error) {
@@ -68,33 +70,43 @@ export const PATCH = async function (req: NextRequest) {
   }
 };
 
-// const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-// if (!token) {
-//   return new NextResponse("Unauthorized", { status: 401 });
-// }
-// // Use token for your logic
-// console.log("TOKEN???????????????????????????????", token);
-//   try {
+export const DELETE = async (req: NextRequest) => {
+if (req.method === "DELETE") {
+    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+    // const body = await req.json();
+    // const index = body?.index;
 
-//     const body = await req.json();
-//     const userEmail = body.userEmail;
-//     const recipe = body.recipeObj;
+    // console.log("INDEX!!!!!!!!!!!!!!!!!!!!!, ", index);
+    if (!token) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+    const userId = token.sub;
+   
 
-//     console.log("EAMIL!!!!!!!!!!!!!!!!!!!!!!@@@@@@@@@@@@@@#############$$$$$$$$$$$$$%%%%%%%%% 1", userEmail);
-//     console.log("RECIPE!!!!!!!!!!!!!!!!!!!!!!@@@@@@@@@@@@@@#############$$$$$$$$$$$$$%%%%%%%%% 2", recipe);
-//     await connectMongoDB();
-//     const addRecipeToUser = await User.findOneAndUpdate(
-//       { email: userEmail },
-//       { $push: { recipes: recipe } }
-//     );
-//     console.log("addRecipeToUser", addRecipeToUser);
-//     if (addRecipeToUser)
-//       return new NextResponse(JSON.stringify(addRecipeToUser), { status: 200 });
-//   }
-//     catch (error) {
-//     return new NextResponse(
-//       "Error in fetching RECIPES in recipes/route.ts: " + error,
-//       { status: 500 }
-//     );
-//   }
-// }
+    try {
+      const updatedUser = await prisma.user.update({
+        where: { id: userId },
+        data: {
+          // recipes: {
+          //   set: [],
+          // },
+        },
+      });
+
+      console.log("DELETED RECIPE!!!!!!!!!!!!!!1, ", updatedUser);
+      if (updatedUser)
+        return new NextResponse(JSON.stringify(updatedUser), { status: 200 });
+    } catch (error) {
+      return new NextResponse(
+        "Error in updating RECIPES in recipes/route.ts: " + error,
+        { status: 500 }
+      );
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+}
+
+
+
+

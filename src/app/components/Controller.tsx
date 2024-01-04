@@ -131,14 +131,7 @@ export default function Controller({
       <h1 className="text-sm lg:text-2xl text-center mt-3 mb-10">
      Instructions:
     </h1>
-        <video
-          src={require("../../../public/instructions.mp4")}
-          autoPlay
-          muted
-          loop
-          width={700}
-          height={700}
-        />
+   
       </div>
       <hr />
       <Accordion title="Meal Time">
@@ -168,10 +161,11 @@ export default function Controller({
       </Accordion>
       <hr />
       {/* If  all prefrences are not selected show: Please input your preferences*/}
-      {userDietPrefArr[0] === "" ||
-      userDietPrefArr[1] === "" ||
-      userDietPrefArr[2] === "" ||
-      userDietPrefArr[3] === "" ||
+      {
+      //   userDietPrefArr[0] === "" ||
+      // userDietPrefArr[1] === "" ||
+      // userDietPrefArr[2] === "" ||
+      // userDietPrefArr[3] === "" ||
       userDietPrefArr[4] === "" ? (
         <p className="mt-7 text-left p-4 text-red-500 text-lg md:text-2xl font-light">
           * Please input your preferences...

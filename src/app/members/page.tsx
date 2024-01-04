@@ -61,13 +61,7 @@ export default async function Members() {
     url.searchParams.append("callbackUrl", "/members");
     redirect(url.toString());
   }
-  // display the page
-  // return (
-  //   <div>
-  //     <h1>Welcome to the Restricted Page, {session?.user?.name}</h1>
-  //   </div>
-  // );
-  // }
+
   return (
     <>
       <h1 className="text-center mt-5 p-4 text-xs font-light">

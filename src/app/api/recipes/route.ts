@@ -87,9 +87,9 @@ if (req.method === "DELETE") {
       const updatedUser = await prisma.user.update({
         where: { id: userId },
         data: {
-          // recipes: {
-          //   set: [],
-          // },
+          recipes: {
+            set: [],
+          },
         },
       });
 

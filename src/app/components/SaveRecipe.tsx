@@ -60,7 +60,7 @@ export default function SaveRecipe({
         show={showToastForNoUser}
       />
       <button
-        className="p-2 bg-white text-black border border-black rounded-3xl text-md font-md px-[5%] shadow-2xl active:scale-[.99] active:shadow-none transform transition duration-150 hover:bg-gray-400"
+        className="md:w-50 md:mb-10 py-2 px-3 md:py-2 md:px-20 bg-cream-600 text-black border-2 border-green-400 rounded-3xl text-[.75rem] md:text-md md:font-md shadow-2xl active:scale-[.99] active:shadow-none transform transition duration-150 hover:bg-gray-700 hover:text-white hover:border-none"
         onClick={(event: React.MouseEvent<HTMLButtonElement>) =>
           handleSaveRecipe()
         }
@@ -68,7 +68,7 @@ export default function SaveRecipe({
         //   color: user ? "gray" : "red",
         // }}
       >
-        Save Recipe
+        SAVE RECIPE
       </button>
       <Toast
         message="Your Recipe is now SAVED!"

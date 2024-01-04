@@ -16,7 +16,6 @@ export default function ChatGPT({
   const [chatCompObj, setChatCompObj] = useState<OpenAIResponse | undefined>(undefined);
   let newHistory = [];
   const [isFetching, setIsFetching] = useState(false);
-  const [isGettingRecipes, setIsGettingRecipes] = useState(false);
   let [digitOnly, setDigitOnly] = useState("");
 
   const [conversationHistory, setConversationHistory] = useState<Message[]>([
@@ -37,8 +36,6 @@ export default function ChatGPT({
   }, [userDietPrefArr]);
 
   const handleAPISubmit = async () => {
-    // event.preventDefault();
-    setIsGettingRecipes(true);
     setIsFetching(true);
 
     const requestBody = {
@@ -87,6 +84,22 @@ export default function ChatGPT({
     });
   };
 
+  const clearChatConvo = () => {
+    setConversationHistory([
+      {
+        role: "system",
+        content:
+          "You are a stuck up chef and like to mock others. You are to the point. Once in a while, you like to give a history lesson of an ingredient.",
+        // "A helpful recipe generator that gives technical and historical information about the ingredients and cooking techniques."
+      },
+    ]);
+    setCurrentContent("");
+    setChatCompObj(undefined);
+    setIsFetching(false);
+
+
+  };
+
   useEffect(() => {
     if(chatCompObj)
       setIsFetching(false);
@@ -116,7 +129,7 @@ export default function ChatGPT({
 
           <textarea
             name="message"
-            className="border rounded-xl text-center border-black w-20 h-10 md:h-10 p-1 mb-5 md:text-xl"
+            className="border rounded-xl text-center border-black w-20 h-10 md:h-10 p-1 mb-10 md:text-xl"
             placeholder="#"
             onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
               digitOnly = event.target.value.replace(/\D/g, "");
@@ -130,20 +143,23 @@ export default function ChatGPT({
           ></textarea>
 
           <button
-            className="p-2 mb-10 bg-white text-black border border-black rounded-3xl text-md font-md px-[6%] shadow-2xl active:scale-[.99] active:shadow-none transform transition duration-150 hover:bg-gray-400"
+           className="md:w-50 md:mb-10 py-2 px-3 md:py-2 md:px-20 bg-gray-600 text-white border-2 border-red-100 rounded-3xl text-[.75rem] md:text-md md:font-md shadow-2xl active:scale-[.99] active:shadow-none transform transition duration-150 hover:bg-gray-700 hover:border-none"
             onClick={handleAPISubmit}
           >
             GET RECIPE
           </button>
+          <button
+            className="md:w-50 md:mb-10 py-2 px-3 md:py-2 md:px-20 bg-cream-600 text-black border-2 border-red-200 rounded-3xl text-[.75rem] md:text-md md:font-md shadow-2xl active:scale-[.99] active:shadow-none transform transition duration-150 hover:text-white hover:bg-gray-700 hover:border-none"
+            onClick={clearChatConvo}
+          >
+            START OVER
+          </button>
           
 
-          {chatCompObj === undefined ? (
-            <>{console.log("chatCompObj1: ", chatCompObj)}</>
-          ) : (
-            <>
+       
               <SaveRecipe chatCompObj={chatCompObj} />
-            </>
-          )}
+       
+        
         </div>
       </>
     );

@@ -3,7 +3,7 @@ import { Delete } from "lucide-react";
 import { useRef, useState } from "react";
 
 export default function GetUsersRecipe() {
-  const [userRecipes, setUserRecipes] = useState<String[] | null>(null);
+  const [userRecipes, setUserRecipes] = useState<String[]>([]);
   const [error, setError] = useState<string | null>(null);
   const recipeDisplay = useRef<HTMLDivElement>(null);
   const closeRecipesBtn = useRef<HTMLButtonElement>(null);
@@ -22,7 +22,7 @@ export default function GetUsersRecipe() {
       setError(null);
     } catch (error: any) {
       setError(error.message);
-      setUserRecipes(null);
+      setUserRecipes([]);
     }
     recipeDisplay.current?.classList.remove("hidden");
     recipeDisplay.current?.classList.add("flex");
@@ -40,6 +40,10 @@ export default function GetUsersRecipe() {
   };
 
   const deleteRecipe = async () => {
+    const alertOk = confirm("Are you sure you want to delete all your recipes?");
+    console.log("alertOk: ", alertOk);
+  
+    if(alertOk) {
     try {
       const response = await fetch("api/recipes/", {
         method: "DELETE",
@@ -55,6 +59,8 @@ export default function GetUsersRecipe() {
       setError(error.message);
       setUserRecipes([]);
     }
+  }
+  else return;
   };
 
   // Regex to check if the string starts with a number and the a parentheses
@@ -62,7 +68,10 @@ export default function GetUsersRecipe() {
   // Split the string into an array divided by numbers
 
   console.log("USER RECIPES: ", userRecipes);
-  const splitArray = userRecipes?.map((item, key) => item.split(/\n/g));
+  let splitArray: [] | any = [];
+  if(userRecipes?.length > 0)  {
+  splitArray = userRecipes?.map((item, key) => item.split(/\n/g));
+  }
   // if (splitArray?.length === 0) {
   //   return (
      
@@ -97,7 +106,7 @@ export default function GetUsersRecipe() {
             CLOSE RECIPES
           </button>
 
-          <h1 className="text-2xl font-bold mb-10">Your Saved Recipes</h1>
+          <h1 className="text-2xl font-bold mb-10">Your Saved Recipes:</h1>
 
           <ul className="flex flex-col justify-center items-center">
             {splitArray?.map((item: any, index: number) => {
@@ -137,10 +146,10 @@ export default function GetUsersRecipe() {
           )}
           </ul>
           <button
-          className="md:w-50 mb-20 py-2 px-3 md:py-2 md:px-7 bg-gray-600 text-white border border-red-100 rounded-3xl text-[.75rem] md:text-md md:font-md shadow-2xl active:scale-[.99] active:shadow-none transform transition duration-150 hover:bg-gray-700 hover:border-none"
+          className="md:w-50 mb-20 py-2 px-3 md:py-2 md:px-7 bg-white text-red-500 border-2 border-red-500 rounded-3xl text-[.75rem] md:text-md md:font-md shadow-2xl active:scale-[.99] active:shadow-none transform transition duration-150 hover:bg-gray-700 hover:border-none"
           onClick={deleteRecipe}
         >
-          DELETE RECIPE
+          DELETE ALL RECIPES!
         </button>
           <button
             // ref={closeRecipesBtn}

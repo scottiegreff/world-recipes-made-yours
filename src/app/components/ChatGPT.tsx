@@ -143,13 +143,13 @@ export default function ChatGPT({
           ></textarea>
 
           <button
-           className="md:w-50 md:mb-10 py-2 px-3 md:py-2 md:px-20 bg-gray-600 text-white border-2 border-red-100 rounded-3xl text-[.75rem] md:text-md md:font-md shadow-2xl active:scale-[.99] active:shadow-none transform transition duration-150 hover:bg-gray-700 hover:border-none"
+           className="mb-20 md:w-50 py-2 px-3 md:py-2 md:px-20 bg-gray-600 text-white border-2 border-green-600 rounded-3xl text-[.75rem] md:text-md md:font-md shadow-2xl active:scale-[.99] active:shadow-none transform transition duration-150 hover:bg-gray-700 hover:border-none"
             onClick={handleAPISubmit}
           >
             GET RECIPE
           </button>
           <button
-            className="md:w-50 md:mb-10 py-2 px-3 md:py-2 md:px-20 bg-cream-600 text-black border-2 border-red-200 rounded-3xl text-[.75rem] md:text-md md:font-md shadow-2xl active:scale-[.99] active:shadow-none transform transition duration-150 hover:text-white hover:bg-gray-700 hover:border-none"
+            className="md:w-50 md:mb-10 py-2 px-3 md:py-2 md:px-20 text-white bg-gray-800 border-2 border-red-400 rounded-3xl text-[.75rem] md:text-md md:font-md shadow-2xl active:scale-[.99] active:shadow-none transform transition duration-150 hover:text-white hover:bg-gray-700 hover:border-none"
             onClick={clearChatConvo}
           >
             START OVER
@@ -170,7 +170,8 @@ export default function ChatGPT({
       <>
         <div className="flex justify-center items-center">
           <button
-            className="my-20 p-2 bg-white text-black rounded-3xl border border-black text-lg font-light px-[5%] shadow-2xl shadow-yellow-400 active:scale-[.99] active:shadow-none transform transition duration-150 hover:bg-gray-900 hover:text-white hover:shadow-white"
+           className="my-20 md:w-50 md:mb-10 py-2 px-3 md:py-2 md:px-20 bg-slate-800 text-white border-2 border-green-800 rounded-3xl text-[1rem] md:text-md md:font-md shadow-yellow-400 active:scale-[.99] active:shadow-none transform transition duration-150 hover:text-white hover:bg-slate-800 hover:border-none"
+            // className="my-20 p-2 bg-white text-black rounded-3xl border border-black text-lg font-light px-[5%] shadow-2xl shadow-yellow-400 active:scale-[.99] active:shadow-none transform transition duration-150 hover:bg-gray-900 hover:text-white hover:shadow-white"
             onClick={handleAPISubmit}
           >
             GET RECIPE IDEAS

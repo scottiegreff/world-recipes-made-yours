@@ -9,10 +9,8 @@ import OpenAI from 'openai';
 import { json } from "stream/consumers";
 
 
-console.log("process.env.NEXT_PUBLIC_OPENAI_API_KEY: ", process.env.NEXT_PUBLIC_OPENAI_API_KEY);
-
   const openai = new OpenAI({
-    apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY, dangerouslyAllowBrowser: true,
+    apiKey: process.env.OPENAI_API_KEY,
     organization:  "org-L5VgsnBIwfE4BmB35VkzKLVT"
   });
 

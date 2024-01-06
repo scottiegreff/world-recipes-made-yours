@@ -5,24 +5,37 @@ import Message from "../interfaces/Message";
 import OpenAIResponse from "@/app/interfaces/OpenAIResponse";
 import RecipeDisplay from "./RecipeDisplay";
 import LoadingSpinner from "./LoadingSpinner";
+import OpenAI from 'openai';
+import { json } from "stream/consumers";
+
+
+console.log("process.env.NEXT_PUBLIC_OPENAI_API_KEY: ", process.env.NEXT_PUBLIC_OPENAI_API_KEY);
+
+  const openai = new OpenAI({
+    apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY, dangerouslyAllowBrowser: true,
+    organization:  "org-L5VgsnBIwfE4BmB35VkzKLVT"
+  });
 
 export default function ChatGPT({
   userDietPrefArr,
 }: {
   userDietPrefArr: string[];
 }) {
+
   const submitGptBtnRef = useRef(null);
   let result: OpenAIResponse | undefined = undefined;
   const [chatCompObj, setChatCompObj] = useState<OpenAIResponse | undefined>(undefined);
   let newHistory = [];
   const [isFetching, setIsFetching] = useState(false);
   let [digitOnly, setDigitOnly] = useState("");
+  const [reqCount, setReqCount] = useState(0)
+  const gptDisplayRef = useRef(null);
 
-  const [conversationHistory, setConversationHistory] = useState<Message[]>([
+  const [conversationHistory, setConversationHistory] = useState<any>([
     {
       role: "system",
       content:
-        "You are a stuck up chef and like to mock others. You are to the point. Once in a while, you like to give a history lesson of an ingredient.",
+        "You are a stuck up chef and like to mock others. You are to the point. Once in a while, you like to give a history lesson of an ingredient. You only respond with JSON data.",
       // "A helpful recipe generator that gives technical and historical information about the ingredients and cooking techniques."
     },
   ]);
@@ -35,54 +48,103 @@ export default function ChatGPT({
     setCurrentContent(userDietPref);
   }, [userDietPrefArr]);
 
+
   const handleAPISubmit = async () => {
     setIsFetching(true);
+    setReqCount(reqCount + 1);
 
-    const requestBody = {
+    // if(reqCount === 1) {
+    //   requestBody = {
+    //     role: "user",
+    //     constent: `reply in JSON format of { 'Recipe Name': 'Short Description' } of 10 ${userDietPrefArr[2]} ${userDietPrefArr[0]} ${userDietPrefArr[4]} recipes. They are to be ${userDietPrefArr[1]} and able to be made in ${userDietPrefArr[3]}`
+    //   }
+
+
+      const requestBody = {
       currentUserInput: { role: "user", content: currentContent },
       conversationHistory,
     };
+   
+    // [
+    //   {"role": "system", "content": "You are a helpful assistant."},
+    //   {"role": "user", "content": "Hello!"}
+    // ],
 
-    const apiRoute = new URL(`${process.env.NEXT_PUBLIC_BASE_URL}/api/chat`);
 
-    await fetch(apiRoute, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestBody),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          // Handle response errors
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json(); // Parse JSON response
-      })
-      .then((data) => {
-        result = data;
-        setChatCompObj(result)
-      })
-      .catch((error) => {
-        console.error("Error during fetch:", error); // Handle any errors that occurred during fetch
-      });
+     
+  try{
+    const completion = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
 
-    // setChatCompObj(result);
-    // setIsFetching(false);
-    setConversationHistory((prevHistory) => {
-      // Construct a new array with the previous history and the new user input
-      newHistory = [
-        ...prevHistory,
-        ...(result?.choices ?? []).map((choice) => {
-          return {
-            role: choice.message.role,
-            content: choice.message.content,
-          };
-        }),
-      ];
-      return newHistory;
+      messages: [
+        {role: "system", content: "You are a stuck up chef and like to mock others. You are to the point. Once in a while, you like to give a history lesson of an ingredient. You only respond with JSON data."},
+        
+      ],
+      stream: true,
+      max_tokens: 150,
     });
-  };
+  
+    for await (const chunk of completion) {
+      //display the chunk in the gptDisplayRef
+      // const gptDisplay = gptDisplayRef.current;
+      // console.log("gptDisplay: ", gptDisplay);
+      console.log(chunk.choices[0].delta.content);
+    }
+  }
+  catch (error) {
+    console.error(error);
+  }
+  }
+
+  // const handleAPISubmit = async () => {
+  //   setIsFetching(true);
+
+  //   const requestBody = {
+  //     currentUserInput: { role: "user", content: currentContent },
+  //     conversationHistory,
+  //   };
+// 
+    // const apiRoute = new URL(`${process.env.NEXT_PUBLIC_BASE_URL}/api/chat`);
+// 
+  //   await fetch(apiRoute, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(requestBody),
+  //   })
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         // Handle response errors
+  //         throw new Error(`HTTP error! Status: ${response.status}`);
+  //       } 
+  //       return response.json(); // Parse JSON response
+  //     })
+  //     .then((data) => {
+  //       result = data;
+  //       setChatCompObj(result)
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error during fetch:", error); // Handle any errors that occurred during fetch
+  //     });
+
+  //   // setChatCompObj(result);
+  //   // setIsFetching(false);
+  //   setConversationHistory((prevHistory) => {
+  //     // Construct a new array with the previous history and the new user input
+  //     newHistory = [
+  //       ...prevHistory,
+  //       ...(result?.choices ?? []).map((choice) => {
+  //         return {
+  //           role: choice.message.role,
+  //           content: choice.message.content,
+  //         };
+  //       }),
+  //     ];
+  //     console.log("newHistory: ", newHistory);
+  //     return newHistory;
+  //   });
+  // };
 
   const clearChatConvo = () => {
     setConversationHistory([
@@ -96,8 +158,6 @@ export default function ChatGPT({
     setCurrentContent("");
     setChatCompObj(undefined);
     setIsFetching(false);
-
-
   };
 
   useEffect(() => {
@@ -121,7 +181,13 @@ export default function ChatGPT({
       // shows the recipe ideas
       <>
         <div className="flex flex-col justify-center items-center mb-[20vh]">
-          <RecipeDisplay chatCompObj={chatCompObj} />
+          <div ref={gptDisplayRef} className="flex flex-col justify-center items-center mb-10">
+            <h1 className="text-2xl md:text-4xl font-bold mb-5">Recipe Ideas</h1>
+            <p className="text-sm md:text-lg font-light mb-5">
+              {/* {chatCompObj?.choices[0].text} */}
+            </p>
+          </div>
+          {/* <RecipeDisplay chatCompObj={chatCompObj} /> */}
           <label className="mb-3 text-sm md:text-lg font-light">
             Enter Recipe <span className="font-bold text-2xl">#</span> for
             Ingredients & Technique

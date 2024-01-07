@@ -20,7 +20,7 @@ export async function POST(req: Request) {
     max_tokens: 300,
     prompt: `Create three slogans for a business with unique features.
  
-Business: Bookstore with cats
+Business: Bookstore with daogs
 Slogans: "Purr-fect Pages", "Books and Whiskers", "Novels and Nuzzles"
 Business: Gym with rock climbing
 Slogans: "Peak Performance", "Reach New Heights", "Climb Your Way Fit"

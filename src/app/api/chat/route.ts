@@ -4,16 +4,16 @@
 import OpenAI from 'openai';
 import { OpenAIStream, StreamingTextResponse } from 'ai';
  
-// Optional, but recommended: run on the edge runtime.
-// See https://vercel.com/docs/concepts/functions/edge-functions
-export const runtime = 'edge';
  
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
 });
+// Optional, but recommended: run on the edge runtime.
+// See https://vercel.com/docs/concepts/functions/edge-functions
+export const runtime = 'edge';
+
  
 export async function POST(req: Request) {
-  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
   // Extract the `messages` from the body of the request
   const { messages } = await req.json();
  
@@ -26,7 +26,6 @@ export async function POST(req: Request) {
 
   );
 
- 
   // Convert the response into a friendly text-stream
   const stream = OpenAIStream(response);
  

@@ -7,7 +7,7 @@ import logo from "../../public/fork_knife_logo.svg";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 import ResponseData from "./types/ResponseData";
-
+import Completion from "./components/Completion";
 export default async function Home() {
   const session = await getServerSession(authOptions);
   // if (session) {
@@ -60,6 +60,7 @@ export default async function Home() {
   return (
     <>
       <div className="">
+       
         {/* <svg
           className="m-auto animate-spin-scale-down-once h-100 w-100 text-white"
           xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +77,7 @@ export default async function Home() {
         </svg> */}
  
         <Controller onLoadData={onLoadData} />
-      
+        <Completion />
       </div>
     </>
   );

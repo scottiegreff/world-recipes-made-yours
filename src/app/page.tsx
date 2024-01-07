@@ -8,6 +8,8 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 import ResponseData from "./types/ResponseData";
 import Completion from "./components/Completion";
+
+
 export default async function Home() {
   const session = await getServerSession(authOptions);
   // if (session) {

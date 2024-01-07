@@ -9,7 +9,7 @@ import { PiNumberSquareTwoLight } from "react-icons/pi";
 import { PiNumberSquareThreeFill } from "react-icons/pi";
 import { PiNumberSquareFourLight } from "react-icons/pi";
 import { PiNumberSquareFiveFill } from "react-icons/pi";
-import ChatGPT from "./ChatGPT";
+import Chat from "./Chat"
 // <div className="flex flex-col justify-start items-start">
 // <h3 className="text-lg lg:text-xl font-md mt-10 mb-5">
 //   Instructions:
@@ -173,7 +173,7 @@ export default function Controller({
       ) : (
         // Show the GET RECIPE IDEAS button
         <>
-          <ChatGPT userDietPrefArr={userDietPrefArr} />
+          <Chat userDietPrefArr={userDietPrefArr} />
         </>
       )}
     </>

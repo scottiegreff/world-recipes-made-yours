@@ -24,7 +24,7 @@ export default function Chat({
   let [digitOnly, setDigitOnly] = useState("");
   const [reqCount, setReqCount] = useState(0)
   const chatInputRef = useRef(null);
-  const gptDisplayRef = useRef(null);
+  const gptDisplayRef =  useRef<HTMLInputElement>(null);
   const { messages, input, isLoading, handleInputChange, handleSubmit } = useChat();
   const [conversationHistory, setConversationHistory] = useState<any>([
     {
@@ -40,11 +40,11 @@ export default function Chat({
     // let userDietPref = `Please give me 5 ${userDietPrefArr[2]} ${userDietPrefArr[0]} ${userDietPrefArr[4]} recipes to choose from. I am ${userDietPrefArr[1]} and I have ${userDietPrefArr[3]} to prepare the complete recipe.`;
     const userDietPref = `bullet list in the format "#)Recipe Name - Short Description" of 10 ${userDietPrefArr[2]} ${userDietPrefArr[0]} ${userDietPrefArr[4]} recipes. They are to be ${userDietPrefArr[1]} and able to be made in ${userDietPrefArr[3]}`;
     // const userDietPref = "Please give me a list of 5 Italian dinner recipes. I am meat eater that is looking for comfort food and I have 1 hour to prepare the complete recipe.";
-    if (chatInputRef.current) {
+   
       //change the value of the current ref
       // const chatInputRef = useRef<HTMLInputElement>(null);
       // chatInputRef.current?.setAttribute('value', userDietPref);
-    }
+    
     setCurrentContent(userDietPref);
   }, [userDietPrefArr]);
 

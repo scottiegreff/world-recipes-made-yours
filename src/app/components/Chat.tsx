@@ -44,7 +44,7 @@ export default function Chat() {
       <div className={styles.message_content}>
         {messages.map((m) => (
           <div key={m.id}>
-            <span>{m.role === 'user' ? '👤' : '🤖'}: </span>
+            <span>{m.role === 'user' ? 'me' : '🤖'}: </span>
             <span className={m.role === 'user' ? 'text-blue-400' : ''}>
               {m.content}
             </span>

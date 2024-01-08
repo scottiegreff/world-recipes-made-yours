@@ -29,7 +29,7 @@ export async function POST(req: Request) {
   // Convert the response into a friendly text-stream
   const stream = OpenAIStream(response, {
     onCompletion:async (completion:string) => {
-        await console.log('Chat completed')
+      await console.log('Chat completed')
     }
   })
   // Respond with the stream

@@ -26,16 +26,19 @@ export default function Chat() {
   })
  
   const generateCompletion = useDebouncedCallback(e => {
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!! RESPONSE: ",chatMessage)
     complete(chatMessage)
   }, 500)
 
   const handleChatInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChatMessage(e.target.value)
+    console.log("!!!!!!!!!!!!!!!!!!! setChatMsg ",e.target.value)
     handleInputChange(e)
   }
 
   const handleChatSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     handleSubmit(e)
+    console.log("!!!!!!!!!!!!!!!!!!! setCha ",chatMessage)
     setChatMessage('')
   }
 

@@ -173,7 +173,8 @@ export default function Controller({
       ) : (
         // Show the GET RECIPE IDEAS button
         <>
-          <Chat userDietPrefArr={userDietPrefArr} />
+          {/* <Chat userDietPrefArr={userDietPrefArr} /> */}
+          <Chat />
         </>
       )}
     </>

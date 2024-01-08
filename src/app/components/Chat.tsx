@@ -1,93 +1,161 @@
-"use client";
-import SaveRecipe from "./SaveRecipe";
-import React, { useState, useEffect, useRef } from "react";
-import Message from "../interfaces/Message";
-import OpenAIResponse from "@/app/interfaces/OpenAIResponse";
-import RecipeDisplay from "./RecipeDisplay";
-import LoadingSpinner from "./LoadingSpinner";
-import OpenAI from 'openai';
-import { json } from "stream/consumers";
-import { useChat } from 'ai/react';
+'use client'
+
+import { useState } from 'react'
+import { useChat, useCompletion } from 'ai/react'
+import { useDebouncedCallback } from 'use-debounce'
+import styles from "./page.module.css"
 
 
-export default function Chat({
-  userDietPrefArr,
-}: {
-  userDietPrefArr: string[];
-}) {
+export default function Chat() {
 
-  const submitGptBtnRef = useRef(null);
-  let result: OpenAIResponse | undefined = undefined;
-  const [chatCompObj, setChatCompObj] = useState<OpenAIResponse | undefined>(undefined);
-  let newHistory = [];
-  const [isFetching, setIsFetching] = useState(false);
-  let [digitOnly, setDigitOnly] = useState("");
-  const [reqCount, setReqCount] = useState(0)
-  const chatInputRef = useRef(null);
-  const gptDisplayRef =  useRef<HTMLInputElement>(null);
-  const { messages, input, isLoading, handleInputChange, handleSubmit } = useChat();
-  const [conversationHistory, setConversationHistory] = useState<any>([
-    {
-      role: "system",
-      content:
-        "You are a stuck up chef and like to mock others. You are to the point. Once in a while, you like to give a history lesson of an ingredient. You only respond with JSON data.",
-      // "A helpful recipe generator that gives technical and historical information about the ingredients and cooking techniques."
+  const [chatMessage, setChatMessage] = useState('')
+  const { messages, input, setInput, handleSubmit, handleInputChange } = useChat()
+
+  const { complete, completion } = useCompletion({
+    api: '/api/completion',
+    onResponse: res => {
+      if (res.status === 429) {
+        console.error('You are being rate limited. Please try again later.')
+      }
     },
-  ]);
-  const [currentContent, setCurrentContent] = useState("");
-  // console.log("currentContent: ", currentContent);
-  useEffect(() => {
-    // let userDietPref = `Please give me 5 ${userDietPrefArr[2]} ${userDietPrefArr[0]} ${userDietPrefArr[4]} recipes to choose from. I am ${userDietPrefArr[1]} and I have ${userDietPrefArr[3]} to prepare the complete recipe.`;
-    const userDietPref = `bullet list in the format "#)Recipe Name - Short Description" of 10 ${userDietPrefArr[2]} ${userDietPrefArr[0]} ${userDietPrefArr[4]} recipes. They are to be ${userDietPrefArr[1]} and able to be made in ${userDietPrefArr[3]}`;
-    // const userDietPref = "Please give me a list of 5 Italian dinner recipes. I am meat eater that is looking for comfort food and I have 1 hour to prepare the complete recipe.";
-   
-      //change the value of the current ref
-      // const chatInputRef = useRef<HTMLInputElement>(null);
-      // chatInputRef.current?.setAttribute('value', userDietPref);
-    
-    setCurrentContent(userDietPref);
-  }, [userDietPrefArr]);
+    onFinish: () => {
+      console.log(completion)
+      setInput(completion)
+    }
+  })
+ 
+  const generateCompletion = useDebouncedCallback(e => {
+    complete(chatMessage)
+  }, 500)
 
-console.log("messages: ", messages);
-  const handleAPISubmit = async () => {
-    setIsFetching(true);
-    setReqCount(reqCount + 1);
-console.log("reqCount: ", reqCount);
-    // if(reqCount === 1) {
-    //   requestBody = {
-    //     role: "user",
-    //     constent: `reply in JSON format of { 'Recipe Name': 'Short Description' } of 10 ${userDietPrefArr[2]} ${userDietPrefArr[0]} ${userDietPrefArr[4]} recipes. They are to be ${userDietPrefArr[1]} and able to be made in ${userDietPrefArr[3]}`
-    //   }
-
-
-      const requestBody = {
-      currentUserInput: { role: "user", content: currentContent },
-      conversationHistory,
-    };
-   
+  const handleChatInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChatMessage(e.target.value)
+    handleInputChange(e)
   }
 
+  const handleChatSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    handleSubmit(e)
+    setChatMessage('')
+  }
 
   return (
-    <div>
-      {messages.map(m => (
-        <div key={m.id}>
-          {m.role === 'user' ? 'User: ' : 'AI: '}
-          {m.content}
-        </div>
-      ))}
- 
-      <form onSubmit={handleSubmit}>
-        <label>
-        
-          <input className="w-full h-20" value={input} onChange={handleInputChange} />
-        </label>
-        <button type="submit" className="my-20 md:w-50 md:mb-10 py-2 px-3 md:py-2 md:px-20 bg-slate-800 text-white border-2 border-green-800 rounded-3xl text-[1rem] md:text-md md:font-md shadow-yellow-400 active:scale-[.99] active:shadow-none transform transition duration-150 hover:text-white hover:bg-slate-800 hover:border-none"
-        >GET RECIPE IDEAS</button>
-      </form>
+    <div className="chat">
+      <h1 className={styles.chat_title}>Welcome to the AI Chatbot</h1>
+      <div className={styles.message_content}>
+        {messages.map((m) => (
+          <div key={m.id}>
+            <span>{m.role === 'user' ? '👤' : '🤖'}: </span>
+            <span className={m.role === 'user' ? 'text-blue-400' : ''}>
+              {m.content}
+            </span>
+          </div>
+        ))}
+      </div>
+      <div className={styles.text_area}>
+        <form onSubmit={(e) => handleChatSubmit(e)}>
+          <input
+            value={input}
+            placeholder="Say something..."
+            onChange={(e) => handleChatInputChange(e)}
+            className={styles.input}
+          />
+        </form>
+        <button onClick={generateCompletion}>Generate completion</button>
+      </div>
     </div>
-  );
+  )
 }
+// "use client";
+// import SaveRecipe from "./SaveRecipe";
+// import React, { useState, useEffect, useRef } from "react";
+// import Message from "../interfaces/Message";
+// import OpenAIResponse from "@/app/interfaces/OpenAIResponse";
+// import RecipeDisplay from "./RecipeDisplay";
+// import LoadingSpinner from "./LoadingSpinner";
+// import OpenAI from 'openai';
+// import { json } from "stream/consumers";
+// import { useChat } from 'ai/react';
+
+
+// export default function Chat({
+//   userDietPrefArr,
+// }: {
+//   userDietPrefArr: string[];
+// }) {
+
+//   const submitGptBtnRef = useRef(null);
+//   let result: OpenAIResponse | undefined = undefined;
+//   const [chatCompObj, setChatCompObj] = useState<OpenAIResponse | undefined>(undefined);
+//   let newHistory = [];
+//   const [isFetching, setIsFetching] = useState(false);
+//   let [digitOnly, setDigitOnly] = useState("");
+//   const [reqCount, setReqCount] = useState(0)
+//   const chatInputRef = useRef(null);
+//   const gptDisplayRef =  useRef<HTMLInputElement>(null);
+//   const { messages, input, isLoading, handleInputChange, handleSubmit } = useChat();
+//   const [conversationHistory, setConversationHistory] = useState<any>([
+//     {
+//       role: "system",
+//       content:
+//         "You are a stuck up chef and like to mock others. You are to the point. Once in a while, you like to give a history lesson of an ingredient. You only respond with JSON data.",
+//       // "A helpful recipe generator that gives technical and historical information about the ingredients and cooking techniques."
+//     },
+//   ]);
+//   const [currentContent, setCurrentContent] = useState("");
+//   // console.log("currentContent: ", currentContent);
+//   useEffect(() => {
+//     // let userDietPref = `Please give me 5 ${userDietPrefArr[2]} ${userDietPrefArr[0]} ${userDietPrefArr[4]} recipes to choose from. I am ${userDietPrefArr[1]} and I have ${userDietPrefArr[3]} to prepare the complete recipe.`;
+//     const userDietPref = `bullet list in the format "#)Recipe Name - Short Description" of 10 ${userDietPrefArr[2]} ${userDietPrefArr[0]} ${userDietPrefArr[4]} recipes. They are to be ${userDietPrefArr[1]} and able to be made in ${userDietPrefArr[3]}`;
+//     // const userDietPref = "Please give me a list of 5 Italian dinner recipes. I am meat eater that is looking for comfort food and I have 1 hour to prepare the complete recipe.";
+   
+//       //change the value of the current ref
+//       // const chatInputRef = useRef<HTMLInputElement>(null);
+//       // chatInputRef.current?.setAttribute('value', userDietPref);
+
+//     setCurrentContent(userDietPref);
+
+//   }, [userDietPrefArr]);
+
+//   const handleAPISubmit = async () => {
+    
+//     setIsFetching(true);
+//     setReqCount(reqCount + 1);
+//     console.log("reqCount: ", reqCount);
+//     // if(reqCount === 1) {
+//     //   requestBody = {
+//     //     role: "user",
+//     //     constent: `reply in JSON format of { 'Recipe Name': 'Short Description' } of 10 ${userDietPrefArr[2]} ${userDietPrefArr[0]} ${userDietPrefArr[4]} recipes. They are to be ${userDietPrefArr[1]} and able to be made in ${userDietPrefArr[3]}`
+//     //   }
+
+
+//       const requestBody = {
+//       currentUserInput: { role: "user", content: currentContent },
+//       conversationHistory,
+//     };
+   
+//   }
+
+
+//   return (
+//     <div>
+//       {messages.map(m => (
+//         <div key={m.id}>
+//           {m.role === 'user' ? 'User: ' : 'AI: '}
+//           {m.content}
+//         </div>
+//       ))}
+ 
+//       <form onSubmit={handleSubmit}>
+//         <label>
+        
+//           <input className="w-full h-20"  onChange={handleInputChange} value={input} />
+//         </label>
+//         <button className="my-20 md:w-50 md:mb-10 py-2 px-3 md:py-2 md:px-20 bg-slate-800 text-white border-2 border-green-800 rounded-3xl text-[1rem] md:text-md md:font-md shadow-yellow-400 active:scale-[.99] active:shadow-none transform transition duration-150 hover:text-white hover:bg-slate-800 hover:border-none"
+//         >GET RECIPE IDEAS</button>
+//       </form>
+//     </div>
+//   );
+// }
 
   // const handleAPISubmit = async () => {
   //   setIsFetching(true);

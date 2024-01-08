@@ -79,7 +79,7 @@ export default async function Home() {
         </svg> */}
  
         <Controller onLoadData={onLoadData} />
-        <Completion />
+        {/* <Completion /> */}
       </div>
     </>
   );

@@ -65,7 +65,7 @@ export default function Chat() {
     </div>
   )
 }
-// "use client";
+// "use client"
 // import SaveRecipe from "./SaveRecipe";
 // import React, { useState, useEffect, useRef } from "react";
 // import Message from "../interfaces/Message";

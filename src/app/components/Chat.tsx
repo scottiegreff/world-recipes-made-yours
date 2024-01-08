@@ -14,6 +14,7 @@ export default function Chat() {
   const { complete, completion } = useCompletion({
     api: '/api/completion',
     onResponse: res => {
+      console.log("!!!!!!!!!!!!!!!!!!!!!!!! RESPONSE: ",res)
       if (res.status === 429) {
         console.error('You are being rate limited. Please try again later.')
       }

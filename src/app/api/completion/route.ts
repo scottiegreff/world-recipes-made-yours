@@ -23,6 +23,7 @@ export async function POST(req: Request) {
     prompt: `You are a chatbot helping human with their questions. 
     Help them ask the best questions by completing this input ${prompt}.`,
   });
+  console.log("response: ", response);
   // Convert the response into a friendly text-stream
   const stream = OpenAIStream(response);
   // Respond with the stream
